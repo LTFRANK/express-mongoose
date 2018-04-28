@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+    <% include header.ejs%>
+      <div class="container">
+          <h1><%= title %></h1>
+          <p>Welcome to
+              <%= title %>
+          </p>
+          <%if(user){%>
+              <h3>hello <%=user.username%></h3>
+              <a href="#" onclick="logout()">退出登录</a>
+            <%}else {%>
+              <a href="/user/reg">注册</a>
+               <a href="/user/login">登录</a>
+          <%}%>
+      </div>
+</body>
+<script type="text/javascript">
+function logout() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", "/user/logout");
+    xhr.responseType = "json";
+    xhr.onreadystatechange = function() {
+
+        if (xhr.status == 200 && xhr.readyState == 4) {
+            alert(xhr.response.message)
+            location.reload();
+        }
+    }
+    xhr.send();
+
+}
+</script>
+
+</html>
